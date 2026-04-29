@@ -27,6 +27,17 @@ function pageAssetPath(pathname) {
   return `/pages/${pathname.replaceAll("/", "")}.html`;
 }
 
+function cleanPageRedirectPath(pathname) {
+  const match = pathname.match(/^\/pages\/([^/.]+)(?:\.html)?\/?$/);
+  if (!match) return null;
+
+  const slug = match[1];
+  if (slug === "home") return "/";
+
+  const cleanPath = `/${slug}/`;
+  return PAGE_ROUTES.has(cleanPath) ? cleanPath : null;
+}
+
 function branded404() {
   return new Response(`<!doctype html>
 <html lang="en">
@@ -59,6 +70,12 @@ export default {
 
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method Not Allowed", { status: 405 });
+    }
+
+    const cleanRedirectPath = cleanPageRedirectPath(url.pathname);
+    if (cleanRedirectPath) {
+      url.pathname = cleanRedirectPath;
+      return Response.redirect(url.toString(), 301);
     }
 
     if (url.pathname !== "/" && !url.pathname.includes(".") && !url.pathname.endsWith("/")) {
