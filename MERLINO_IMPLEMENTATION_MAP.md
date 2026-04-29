@@ -6,6 +6,7 @@ This document adapts the Merlino Method to Garage Door Repair Genie without poll
 - PAA syndication layer: Garage Door Tips/Resources assets that answer People Also Ask questions and syndicate the same exact topic across images, video, audio, GBP, and social.
 
 Use `UNIVERSAL_AI_SEARCH_PLAYBOOK.md` for the reusable answer-first framework and `ASK_MAPS_STRATEGY.md` for the post-Q&A Google Maps workflow.
+Use `HUMAN_CONTENT_SOP.md` for the writing/editing pass before publishing new PAA, service, or city content.
 
 ## Entity Rules
 
@@ -114,3 +115,4 @@ These are not code-only tasks, but the site should be ready to link to them once
 - No tracking number appears in GBP image text unless it is the intended GBP primary number.
 - City/service money page is internally linked from the PAA page.
 - No asset from another service appears in the bucket.
+- No fake anecdotes, fake technicians, fake reviews, or fake local jobs are used to make content sound human.

@@ -75,6 +75,8 @@ Use this 8-pass checklist for any new city-service page, PAA page, or major rewr
 7. Hyper-local pass: neighborhoods, climate, housing stock, roads, landmarks, or local constraints.
 8. QA pass: schema, links, mobile layout, duplicate title/H1 check, no cannibalization.
 
+For the human edit and conversational bookend passes, use `HUMAN_CONTENT_SOP.md`. Keep the voice natural, but do not fabricate personal experience, technician stories, reviews, or exact response times.
+
 ## Schema Requirements
 
 | Page Type | Required Schema |

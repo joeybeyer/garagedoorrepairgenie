@@ -10,6 +10,8 @@ Answer-first content + schema markup + entity consistency + verification signals
 
 This playbook treats patent analysis as a useful model for how AI answer systems may choose and cache sources. It does not assume one patent maps perfectly to Google AI Overviews, Ask Maps, ChatGPT, Perplexity, or every AI surface. The operating principle is still sound: make the answer easy to extract, easy to verify, and consistent everywhere.
 
+Use `HUMAN_CONTENT_SOP.md` when drafting or rewriting pages so answer-first content still reads like a calm human service brand instead of generic AI copy.
+
 ## 1. Research Phase
 
 Build a question inventory before writing.
@@ -66,6 +68,8 @@ Every answer page should follow this order:
 12. FAQPage schema and BreadcrumbList schema.
 
 Use short, extractable answers. Avoid vague openings like "it depends" unless followed immediately by a useful range or decision rule.
+
+Do not invent personal anecdotes, fake technician stories, fake credentials, fake response times, or fake customer experiences to make content sound human.
 
 ## 4. Schema Rules
 
