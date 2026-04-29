@@ -410,7 +410,6 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
 }
 
 .cards,
-.services-grid,
 .areas-grid,
 .problem-grid,
 .why-grid {
@@ -490,6 +489,7 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
 }
 
 .what-we-fix,
+.services-grid,
 .service-areas,
 .problems,
 .why-genie,
@@ -522,6 +522,38 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   border-radius: 8px;
   box-shadow: 0 10px 24px rgba(17, 24, 39, 0.06);
   padding: 22px;
+}
+
+.area-card {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-height: 124px;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.area-card strong {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.area-card span {
+  display: block;
+  color: var(--gray);
+  line-height: 1.45;
+}
+
+.card h3,
+.problem h3,
+.why-item h3,
+.area-card strong {
+  text-decoration: none;
+}
+
+.card p {
+  margin-bottom: 0;
 }
 
 .safety-notice,
@@ -850,7 +882,7 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   .brand-text { display: none; }
   .hero { padding: 46px 0 40px; }
   .hero-grid, .grid, .grid.two, .grid.four, .footer-grid, .contact-layout,
-  .cards, .services-grid, .areas-grid, .problem-grid, .why-grid, .hero-trust {
+  .cards, .areas-grid, .problem-grid, .why-grid, .hero-trust {
     grid-template-columns: 1fr;
   }
   .trust-bar { grid-template-columns: 1fr 1fr; }
