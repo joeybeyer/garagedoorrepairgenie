@@ -38,7 +38,7 @@ function branded404() {
 </head>
 <body>
   <main class="not-found">
-    <a class="brand" href="/"><img src="/logo.svg" alt="" width="40" height="40">Garage Door Repair Genie</a>
+    <a class="brand" href="/" aria-label="Garage Door Repair Genie home"><img src="/logo.webp" srcset="/logo.webp 1x, /logo@2x.webp 2x" alt="Garage Door Repair Genie" width="180" height="64"></a>
     <h1>Garage door problem? This page disappeared.</h1>
     <p>The page you requested was not found. Call now for fast help or return home.</p>
     <div class="actions">
