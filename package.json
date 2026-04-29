@@ -1,0 +1,13 @@
+{
+  "name": "garage-door-repair-genie",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Cloudflare Worker lead generation site for Garage Door Repair Genie.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.14.4"
+  }
+}

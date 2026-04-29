@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "garagedoorrepairgenie",
+  "main": "./src/index.js",
+  "compatibility_date": "2026-04-28",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
+}

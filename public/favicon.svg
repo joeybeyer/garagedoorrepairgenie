@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Garage Door Repair Genie favicon">
+  <rect width="64" height="64" rx="14" fill="#111827"/>
+  <path d="M14 30h36v20H14z" fill="#F8FAFC"/>
+  <path d="M18 34h28v4H18zm0 8h28v4H18z" fill="#374151"/>
+  <path d="M31 8c7 7 10 14 6 21-3 5-11 5-14 0-4-7 1-15 8-21z" fill="#F97316"/>
+  <circle cx="44" cy="18" r="3" fill="#14B8A6"/>
+</svg>
