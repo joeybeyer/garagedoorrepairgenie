@@ -201,6 +201,7 @@ function pageHtml(service, city) {
   const canonical = `${ORIGIN}/${slug}/`;
   const nearby = city.nearby.slice(0, 8);
   const relatedServices = services.filter((item) => item.baseSlug !== service.baseSlug).slice(0, 6);
+  const quickAnswer = `${titleCaseKeyword(service.primary)} in ${cityName} helps homeowners get a broken, stuck, noisy, or unsafe garage door diagnosed by a local provider. Call Garage Door Repair Genie for the fastest service window and a local estimate.`;
 
   const faq = [
     {
@@ -243,7 +244,7 @@ ${header()}
   <div class="container">
     <p class="eyebrow">Local ${esc(service.label)}</p>
     <h1>${esc(h1)}</h1>
-    <p class="hero-sub">Need ${esc(service.primary)} in ${cityName}? Garage Door Repair Genie connects homeowners with local service providers for fast diagnosis, clear pricing, and practical help when the door will not work right.</p>
+    <p class="hero-sub">${esc(quickAnswer)}</p>
     <div class="hero-cta">
       <a href="tel:${PHONE_TEL}" class="btn btn-call btn-lg">Call ${PHONE_DISPLAY}</a>
       <a href="#service-details" class="btn btn-secondary">See What We Fix</a>
@@ -253,8 +254,10 @@ ${header()}
 
 <section class="quick-summary">
   <div class="container">
-    <h2>Fast Local Help in ${city.name}</h2>
+    <h2>Quick Answer</h2>
+    <p>${esc(quickAnswer)}</p>
     <ul class="key-points">
+      <li><strong>Best next step:</strong> call before forcing a damaged or stuck door</li>
       <li><strong>Local ${esc(service.label.toLowerCase())}</strong> for homeowners in ${cityName}</li>
       <li><strong>Same-day dispatch</strong> is often available when you call early</li>
       <li><strong>Common related calls:</strong> ${esc(service.secondary.slice(0, 3).join(", "))}</li>
