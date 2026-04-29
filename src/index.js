@@ -1,29 +1,8 @@
 const CANONICAL_ORIGIN = "https://garagedoorrepairgenie.com";
 
-const PAGE_ROUTES = new Set([
-  "/garage-door-repair/",
-  "/garage-door-spring-repair/",
-  "/garage-door-torsion-spring-repair/",
-  "/cost-to-replace-garage-door-spring/",
-  "/garage-door-spring-snapped/",
-  "/garage-door-opener-repair/",
-  "/emergency-garage-door-repair/",
-  "/off-track-garage-door-repair/",
-  "/garage-door-cable-repair/",
-  "/garage-door-wire-broke/",
-  "/portland-or/",
-  "/vancouver-wa/",
-  "/savannah-ga/",
-  "/marietta-ga/",
-  "/atlanta-ga/",
-  "/roswell-ga/",
-  "/san-antonio-tx/",
-  "/contact/"
-]);
-
 function pageAssetPath(pathname) {
   if (pathname === "/") return "/pages/home.html";
-  if (!PAGE_ROUTES.has(pathname)) return null;
+  if (pathname.includes(".") || !pathname.endsWith("/")) return null;
   return `/pages/${pathname.replaceAll("/", "")}.html`;
 }
 
@@ -33,9 +12,7 @@ function cleanPageRedirectPath(pathname) {
 
   const slug = match[1];
   if (slug === "home") return "/";
-
-  const cleanPath = `/${slug}/`;
-  return PAGE_ROUTES.has(cleanPath) ? cleanPath : null;
+  return `/${slug}/`;
 }
 
 function branded404() {
@@ -86,7 +63,8 @@ export default {
     const pagePath = pageAssetPath(url.pathname);
     if (pagePath) {
       const assetUrl = new URL(pagePath, CANONICAL_ORIGIN);
-      return env.ASSETS.fetch(new Request(assetUrl, request));
+      const pageResponse = await env.ASSETS.fetch(new Request(assetUrl, request));
+      if (pageResponse.status !== 404) return pageResponse;
     }
 
     const assetResponse = await env.ASSETS.fetch(request);

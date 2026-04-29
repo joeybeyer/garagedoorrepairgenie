@@ -1,6 +1,7 @@
 node_modules/
 .wrangler/
 .env
+.env.txt
 *.log
 .wrangler-dev.*
 logo.PNG
