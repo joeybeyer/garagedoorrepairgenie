@@ -28,11 +28,24 @@ for (const [title, files] of titles) {
 
 const sitemap = readFileSync("public/sitemap.xml", "utf8");
 const urls = [...sitemap.matchAll(/<loc>https:\/\/garagedoorrepairgenie\.com\/(.*?)<\/loc>/g)].map((match) => match[1]);
+const routeFiles = new Map();
 
 for (const url of urls) {
   const slug = url.replace(/\/$/, "");
   const file = slug === "" ? "home.html" : `${slug}.html`;
+  routeFiles.set(`/${slug}/`, file);
+  if (slug === "") routeFiles.set("/", file);
   if (!existsSync(`public/pages/${file}`)) failures.push(`sitemap url missing page file: /${url} -> ${file}`);
+}
+
+for (const file of pages) {
+  const html = readFileSync(`public/pages/${file}`, "utf8");
+  const links = [...html.matchAll(/href="(\/[^"#?]*)"/g)].map((match) => match[1]);
+  for (const link of links) {
+    if (link.includes(".")) continue;
+    const normalized = link.endsWith("/") ? link : `${link}/`;
+    if (!routeFiles.has(normalized)) failures.push(`${file}: internal link not in sitemap: ${link}`);
+  }
 }
 
 const cityServicePages = pages.filter((file) => /-(or|wa|ga|tx)\.html$/.test(file) && file.split("-").length > 3);

@@ -95,6 +95,14 @@ const services = [
   }
 ];
 
+const topTips = [
+  { href: "/what-to-do-if-garage-door-spring-breaks/", label: "Spring Breaks" },
+  { href: "/how-to-know-if-garage-door-spring-is-broken/", label: "Broken Spring Signs" },
+  { href: "/why-is-my-garage-door-stuck-open/", label: "Door Stuck Open" },
+  { href: "/why-is-my-garage-door-stuck-closed/", label: "Door Stuck Closed" },
+  { href: "/how-much-does-garage-door-repair-cost/", label: "Repair Cost" }
+];
+
 const navLabels = new Map([
   ["garage-door-repair", "Garage Door Repair"],
   ["garage-door-spring-repair", "Spring Repair"],
@@ -141,9 +149,7 @@ function header() {
         <li class="has-dropdown">
           <a href="/cost-to-replace-garage-door-spring/">Garage Door Tips</a>
           <ul class="dropdown">
-            <li><a href="/cost-to-replace-garage-door-spring/">Spring Replacement Cost</a></li>
-            <li><a href="/garage-door-spring-snapped/">Spring Snapped</a></li>
-            <li><a href="/garage-door-wire-broke/">Garage Door Wire Broke</a></li>
+            ${topTips.map((item) => `<li><a href="${item.href}">${esc(item.label)}</a></li>`).join("\n            ")}
           </ul>
         </li>
         <li><a href="/contact/">Contact</a></li>
@@ -177,9 +183,7 @@ function footer() {
     <div class="footer-col">
       <h4>Garage Door Tips</h4>
       <ul>
-        <li><a href="/cost-to-replace-garage-door-spring/">Spring Replacement Cost</a></li>
-        <li><a href="/garage-door-spring-snapped/">Spring Snapped</a></li>
-        <li><a href="/garage-door-wire-broke/">Garage Door Wire Broke</a></li>
+        ${topTips.map((item) => `<li><a href="${item.href}">${esc(item.label)}</a></li>`).join("\n        ")}
         <li><a href="/contact/">Contact</a></li>
       </ul>
     </div>
