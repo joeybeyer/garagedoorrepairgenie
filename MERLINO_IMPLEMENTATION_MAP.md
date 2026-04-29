@@ -9,9 +9,10 @@ This document adapts the Merlino Method to Garage Door Repair Genie without poll
 
 - One bucket equals one service plus one city.
 - Do not mix spring, cable, opener, off-track, and emergency content in the same bucket.
-- Every image, short video, audio episode, GBP post, social post, and internal link in a bucket must match that bucket's service and city.
+- Every image, short video, audio episode, GBP post, social post, review prompt, owner response, and internal link in a bucket must match that bucket's service and city.
 - Every PAA title should include the geo, for example: `How much does garage door spring repair cost in Atlanta GA?`
 - The website page linked from a syndicated asset should be the exact matching city/service page, not the homepage.
+- Do not rely on manual GBP Q&A seeding. The Q&A API was discontinued on November 3, 2025, so Ask Maps/Gemini should be fed from website FAQs, GBP fields, reviews, and citations.
 
 ## Money Page Bucket Structure
 
@@ -86,7 +87,8 @@ These are not code-only tasks, but the site should be ready to link to them once
 | 5 | Chamber of Commerce profiles in each market | Add badges/links to relevant city pages |
 | 6 | SoundCloud account | Embed PAA episodes on matching Garage Door Tips pages |
 | 7 | YouTube Shorts / Instagram / TikTok | Embed or link from matching PAA pages only |
-| 8 | Review collection via correct GBP/MID link | Add review CTA after tracking and GBP setup |
+| 8 | Review collection via correct GBP/MID link | Ask for real service/city details that reinforce Ask Maps answers |
+| 9 | Fact-dense GBP descriptions | Mirror the services and neighborhoods already covered on city pages |
 
 ## Launch Cadence
 
@@ -105,6 +107,8 @@ These are not code-only tasks, but the site should be ready to link to them once
 - Video is UGC-style or real-job footage when available.
 - SoundCloud episode title matches the PAA.
 - GBP post links to the matching PAA page or money page.
+- GBP description confirms the service, city, service areas, and urgency terms covered by the website.
+- Customer review prompts ask for real service details, not keyword-stuffed copy.
 - No tracking number appears in GBP image text unless it is the intended GBP primary number.
 - City/service money page is internally linked from the PAA page.
 - No asset from another service appears in the bucket.

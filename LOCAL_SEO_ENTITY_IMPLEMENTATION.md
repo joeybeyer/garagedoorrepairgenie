@@ -24,6 +24,7 @@ Before the final GBP mirror can be considered complete, each location needs real
 | GBP phone | Placeholder | Replace `(000) 000-0000` with tracked number strategy |
 | GBP URL | Needed | Add each city GBP URL once profiles are live |
 | Reviews/rating | Needed | Add only real aggregate ratings after verified |
+| GBP business description | Needed | Use fact-dense service/city/neighborhood copy that matches the website |
 
 ## Service Entity Overlap Decisions
 
@@ -113,6 +114,18 @@ The current site is intentionally lightweight and has no stock image dependency.
 5. Mark any URL without matching GBP service/category as either a valid SEO expansion or a low-priority orphan.
 6. Add missing pages only when they represent distinct entities or meaningful local search intent.
 
+## Ask Maps / GBP Q&A Replacement
+
+Manual GBP Q&A seeding should no longer be part of the operating plan. Google discontinued the My Business Q&A API on November 3, 2025, and the public Q&A experience is being replaced by AI-generated Maps answers.
+
+The replacement strategy is:
+
+- Put answer-first FAQ content on the website.
+- Make GBP descriptions, categories, services, service areas, and hours complete and fact-dense.
+- Ask real customers to mention concrete service details in reviews.
+- Keep review responses aligned with the service, city, and problem solved.
+- Link the GBP profile to the strongest matching city page, not a generic homepage when a city profile exists.
+
 ## Current Known Gaps
 
 | Gap | Impact | Fix |
@@ -122,6 +135,7 @@ The current site is intentionally lightweight and has no stock image dependency.
 | Trust profiles missing | Entity validation weaker | Add Patch, Crunchbase, Chamber, BBB, SoundCloud, YouTube when live |
 | PAA pages not yet built | Missing AI Overview/social syndication layer | Build verified PAA pages from geo-targeted PAA extraction |
 | Real local images/videos missing | Weak visual/entity trust | Produce service-specific UGC assets per city |
+| GBP descriptions and reviews not mapped | Ask Maps/Gemini has weaker source data | Use `ASK_MAPS_STRATEGY.md` to align descriptions, reviews, and owner responses |
 
 ## QA Targets
 

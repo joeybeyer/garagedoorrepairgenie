@@ -80,6 +80,21 @@ The current website has placeholder phone/entity data. AI trust improves when th
 | Third-party profiles | Needed | Add Patch, Crunchbase, Chamber, BBB, SoundCloud, YouTube when live |
 | Reviews | Needed | Add only real aggregate ratings after verified |
 | Engagement assets | Needed | Publish matching YouTube Shorts, GBP posts, and SoundCloud episodes |
+| Ask Maps sources | Needed | Align website FAQs, GBP descriptions/services, customer reviews, and owner responses |
+
+## Ask Maps / GBP Q&A Update
+
+Do not build strategy around manually seeded Google Business Profile Q&A. Google discontinued the My Business Q&A API on November 3, 2025, and Maps is moving toward Gemini-powered conversational answers.
+
+For Garage Door Repair Genie, that means the answer source stack is now:
+
+1. Website PAA pages and city-service pages.
+2. GBP descriptions, services, categories, hours, and service areas.
+3. Customer reviews that mention real service details.
+4. Owner responses that reinforce the service and city.
+5. Third-party citations and social/video/audio assets.
+
+Every high-value Maps question should have a matching answer on the website first. Then the GBP description and review strategy should reinforce that same fact pattern.
 
 ## AI Overview / Answer Inclusion Checklist
 
@@ -92,6 +107,7 @@ The current website has placeholder phone/entity data. AI trust improves when th
 - The page avoids fake fixed pricing unless a real pricing model exists.
 - Safety-sensitive pages warn users not to force the door.
 - Internal anchor text matches the query cluster.
+- The matching GBP service/description/review language does not contradict the page answer.
 
 ## Testing Protocol
 
