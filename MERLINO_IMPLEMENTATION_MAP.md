@@ -5,6 +5,8 @@ This document adapts the Merlino Method to Garage Door Repair Genie without poll
 - Transactional layer: root-level city/service pages that target `service + city + state` calls.
 - PAA syndication layer: Garage Door Tips/Resources assets that answer People Also Ask questions and syndicate the same exact topic across images, video, audio, GBP, and social.
 
+Use `UNIVERSAL_AI_SEARCH_PLAYBOOK.md` for the reusable answer-first framework and `ASK_MAPS_STRATEGY.md` for the post-Q&A Google Maps workflow.
+
 ## Entity Rules
 
 - One bucket equals one service plus one city.

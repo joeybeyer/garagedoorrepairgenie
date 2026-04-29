@@ -2,6 +2,8 @@
 
 Google Business Profile Q&A is no longer a reliable place to seed answers. Google officially discontinued the My Business Q&A API on November 3, 2025, and local SEO reporting shows the public Q&A experience being phased out in favor of Gemini-powered Maps answers.
 
+This is the Maps-specific companion to `UNIVERSAL_AI_SEARCH_PLAYBOOK.md`.
+
 ## Practical Shift
 
 Old play:

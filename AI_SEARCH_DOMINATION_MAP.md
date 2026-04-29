@@ -2,6 +2,8 @@
 
 This adapts the Glean patent reverse-engineering notes into practical site rules. Treat the patent language as an implementation model, not proof that every AI search product works identically. The useful takeaway is clear: AI answer systems prefer fast, extractable, verified, entity-consistent answers from top-ranked accessible documents.
 
+For the broader repeatable system, use `UNIVERSAL_AI_SEARCH_PLAYBOOK.md`. This file is the Garage Door Repair Genie-specific execution map.
+
 ## Implementation Goal
 
 Make Garage Door Repair Genie pages easy for AI systems to:
