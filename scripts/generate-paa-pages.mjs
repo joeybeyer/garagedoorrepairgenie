@@ -25,14 +25,24 @@ const serviceLinks = [
 ];
 
 const cityLinks = [
-  { href: "/portland-or/", label: "Portland, OR" },
-  { href: "/vancouver-wa/", label: "Vancouver, WA" },
-  { href: "/savannah-ga/", label: "Savannah, GA" },
-  { href: "/marietta-ga/", label: "Marietta, GA" },
-  { href: "/atlanta-ga/", label: "Atlanta, GA" },
-  { href: "/roswell-ga/", label: "Roswell, GA" },
-  { href: "/san-antonio-tx/", label: "San Antonio, TX" }
+  { href: "/garage-door-repair-portland-or/", label: "Portland, OR" },
+  { href: "/garage-door-repair-vancouver-wa/", label: "Vancouver, WA" },
+  { href: "/garage-door-repair-savannah-ga/", label: "Savannah, GA" },
+  { href: "/garage-door-repair-marietta-ga/", label: "Marietta, GA" },
+  { href: "/garage-door-repair-atlanta-ga/", label: "Atlanta, GA" },
+  { href: "/garage-door-repair-roswell-ga/", label: "Roswell, GA" },
+  { href: "/garage-door-repair-san-antonio-tx/", label: "San Antonio, TX" }
 ];
+
+function imageForPage(slug) {
+  if (slug.includes("stuck-open") || slug.includes("stuck-closed")) return "emergency-garage-door-repair.webp";
+  if (slug.includes("opener")) return "garage-door-opener-repair.webp";
+  if (slug.includes("cable") || slug.includes("wire")) return "garage-door-cable-repair.webp";
+  if (slug.includes("come-off-track")) return "off-track-garage-door-repair.webp";
+  if (slug.includes("how-much") || slug.includes("cost")) return "garage-door-repair-cost.webp";
+  if (slug.includes("spring")) return "garage-door-spring-repair.webp";
+  return "garage-door-repair-service.webp";
+}
 
 const pages = [
   {
@@ -246,7 +256,7 @@ function header() {
           </ul>
         </li>
         <li class="has-dropdown">
-          <a href="/portland-or/">Service Areas</a>
+          <a href="/garage-door-repair-portland-or/">Service Areas</a>
           <ul class="dropdown">
             ${cityLinks.map((item) => `<li><a href="${item.href}">${esc(item.label)}</a></li>`).join("\n            ")}
           </ul>
@@ -290,6 +300,7 @@ function footer() {
 
 function pageHtml(page) {
   const canonical = `${ORIGIN}/${page.slug}/`;
+  const heroImage = `/images/branded/${imageForPage(page.slug)}`;
   const faqEntities = [
     { q: page.question, a: page.answer },
     ...page.related.map(([q]) => ({
@@ -310,8 +321,12 @@ function pageHtml(page) {
 <meta property="og:description" content="${esc(page.meta)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="article">
+<meta property="og:image" content="${ORIGIN}${heroImage}">
 <meta name="author" content="Garage Door Repair Genie">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -322,13 +337,18 @@ ${header()}
 
 <section class="hero hero-service">
   <div class="container">
-    <p class="eyebrow">Garage Door Tips</p>
-    <h1>${esc(page.question)}</h1>
-    <p class="hero-sub">${esc(page.answer)}</p>
-    <div class="hero-cta">
-      <a href="tel:${PHONE_TEL}" class="btn btn-call btn-lg">Call ${PHONE_DISPLAY}</a>
-      <a href="#quick-answer" class="btn btn-secondary">Read Quick Answer</a>
+    <div class="hero-copy">
+      <p class="eyebrow">Garage Door Tips</p>
+      <h1>${esc(page.question)}</h1>
+      <p class="hero-sub">${esc(page.answer)}</p>
+      <div class="hero-cta">
+        <a href="tel:${PHONE_TEL}" class="btn btn-call btn-lg">Call ${PHONE_DISPLAY}</a>
+        <a href="#quick-answer" class="btn btn-secondary">Read Quick Answer</a>
+      </div>
     </div>
+    <figure class="hero-media">
+      <img src="${heroImage}" alt="${esc(page.question)} from Garage Door Repair Genie" width="1200" height="675" loading="eager" fetchpriority="high">
+    </figure>
   </div>
 </section>
 

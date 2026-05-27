@@ -145,6 +145,15 @@ function titleCaseKeyword(keyword) {
   return keyword.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 }
 
+function imageForService(service) {
+  if (service.baseSlug.includes("emergency")) return "emergency-garage-door-repair.webp";
+  if (service.baseSlug.includes("opener")) return "garage-door-opener-repair.webp";
+  if (service.baseSlug.includes("cable")) return "garage-door-cable-repair.webp";
+  if (service.baseSlug.includes("off-track")) return "off-track-garage-door-repair.webp";
+  if (service.baseSlug.includes("spring")) return "garage-door-spring-repair.webp";
+  return "garage-door-repair-service.webp";
+}
+
 function phoneDisplay(city) {
   return city?.phoneDisplay || DEFAULT_PHONE_DISPLAY;
 }
@@ -235,6 +244,7 @@ function pageHtml(service, city) {
   const h1 = `${titleCaseKeyword(service.primary)} in ${cityName}`;
   const meta = `${titleCaseKeyword(service.primary)} ${city.name} ${city.state} for ${service.secondary.slice(0, 2).join(" and ")}. Call Garage Door Repair Genie now.`;
   const canonical = `${ORIGIN}/${slug}/`;
+  const heroImage = `/images/branded/${imageForService(service)}`;
   const nearby = city.nearby.slice(0, 8);
   const relatedServices = services.filter((item) => item.baseSlug !== service.baseSlug).slice(0, 6);
   const quickAnswer = `${titleCaseKeyword(service.primary)} in ${cityName} helps homeowners get a broken, stuck, noisy, or unsafe garage door diagnosed by a local provider. Call Garage Door Repair Genie for the fastest service window and a local estimate.`;
@@ -266,6 +276,7 @@ function pageHtml(service, city) {
 <meta property="og:description" content="${esc(meta.slice(0, 158))}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="${ORIGIN}${heroImage}">
 <meta name="author" content="Garage Door Repair Genie">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -281,13 +292,18 @@ function pageHtml(service, city) {
 
 <section class="hero hero-service">
   <div class="container">
-    <p class="eyebrow">Local ${esc(service.label)}</p>
-    <h1>${esc(h1)}</h1>
-    <p class="hero-sub">${esc(quickAnswer)}</p>
-    <div class="hero-cta">
-      <a href="tel:${phoneTel(city)}" class="btn btn-call btn-lg">Call ${phoneDisplay(city)}</a>
-      <a href="#service-details" class="btn btn-secondary">See What We Fix</a>
+    <div class="hero-copy">
+      <p class="eyebrow">Local ${esc(service.label)}</p>
+      <h1>${esc(h1)}</h1>
+      <p class="hero-sub">${esc(quickAnswer)}</p>
+      <div class="hero-cta">
+        <a href="tel:${phoneTel(city)}" class="btn btn-call btn-lg">Call ${phoneDisplay(city)}</a>
+        <a href="#service-details" class="btn btn-secondary">See What We Fix</a>
+      </div>
     </div>
+    <figure class="hero-media">
+      <img src="${heroImage}" alt="${esc(h1)} from Garage Door Repair Genie" width="1200" height="675" loading="eager" fetchpriority="high">
+    </figure>
   </div>
 </section>
 

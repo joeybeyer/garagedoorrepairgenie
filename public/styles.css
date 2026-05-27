@@ -258,6 +258,30 @@ a { color: inherit; }
   padding: 70px 0 54px;
 }
 
+.hero-home {
+  position: relative;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(3, 7, 18, 0.92) 0%, rgba(3, 24, 39, 0.84) 42%, rgba(3, 24, 39, 0.22) 64%, rgba(3, 7, 18, 0.08) 100%),
+    image-set(url("/images/hero-garage-door-repair-genie.webp") type("image/webp")) center / cover no-repeat;
+}
+
+.hero-home .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy {
+  max-width: 690px;
+}
+
+.hero-copy .eyebrow {
+  color: #fed7aa;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -297,6 +321,17 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   padding: 76px 0 64px;
 }
 
+.hero-service .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+  gap: 34px;
+  align-items: center;
+}
+
+.hero-service .hero-copy {
+  max-width: 760px;
+}
+
 .hero-service h1 {
   max-width: 980px;
 }
@@ -310,6 +345,20 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 24px;
+}
+
+.hero-media {
+  margin: 0;
+}
+
+.hero-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  box-shadow: 0 24px 56px rgba(3, 7, 18, 0.34);
 }
 
 .breadcrumbs {
@@ -451,6 +500,45 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   margin-bottom: 22px;
   color: var(--gray);
   font-size: 1.05rem;
+}
+
+.section-visual {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 36px rgba(17, 24, 39, 0.11);
+  background: #fff;
+}
+
+.section-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-visual {
+  aspect-ratio: 16 / 7;
+  margin-bottom: 22px;
+}
+
+.guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.guide-visual {
+  position: sticky;
+  top: 96px;
+  aspect-ratio: 4 / 5;
+}
+
+.guide-questions {
+  display: grid;
+  gap: 10px;
 }
 
 .hero-trust,
@@ -881,9 +969,38 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   }
   .brand-text { display: none; }
   .hero { padding: 46px 0 40px; }
+  .hero-home {
+    min-height: auto;
+    align-items: flex-start;
+    padding: 42px 0 360px;
+    background:
+      linear-gradient(180deg, rgba(3, 7, 18, 0.94) 0%, rgba(3, 24, 39, 0.88) 44%, rgba(3, 24, 39, 0.35) 68%, rgba(3, 7, 18, 0.08) 100%),
+      image-set(url("/images/hero-garage-door-repair-genie.webp") type("image/webp")) 72% bottom / auto 420px no-repeat,
+      #07111f;
+  }
+  .hero-copy {
+    max-width: none;
+  }
+  .hero-cta .btn {
+    width: 100%;
+  }
+  .service-visual,
+  .guide-visual {
+    aspect-ratio: 4 / 3;
+  }
+  .guide-layout {
+    grid-template-columns: 1fr;
+  }
+  .guide-visual {
+    position: static;
+  }
+  .hero-service .container,
   .hero-grid, .grid, .grid.two, .grid.four, .footer-grid, .contact-layout,
   .cards, .areas-grid, .problem-grid, .why-grid, .hero-trust {
     grid-template-columns: 1fr;
+  }
+  .hero-media {
+    order: -1;
   }
   .trust-bar { grid-template-columns: 1fr 1fr; }
   .cta-band {
