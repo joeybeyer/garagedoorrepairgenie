@@ -2,18 +2,18 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ORIGIN = "https://garagedoorrepairgenie.com";
-const PHONE_DISPLAY = "(000) 000-0000";
-const PHONE_TEL = "+10000000000";
+const DEFAULT_PHONE_DISPLAY = "(000) 000-0000";
+const DEFAULT_PHONE_TEL = "+10000000000";
 const PAGES_DIR = "public/pages";
 
 const cities = [
-  { slug: "portland-or", name: "Portland", state: "OR", stateName: "Oregon", nearby: ["Pearl District", "Sellwood-Moreland", "Alberta Arts District", "Hawthorne", "St. Johns", "Laurelhurst", "Northwest Portland", "Southeast Portland", "Northeast Portland"] },
-  { slug: "vancouver-wa", name: "Vancouver", state: "WA", stateName: "Washington", nearby: ["Hazel Dell", "Salmon Creek", "Felida", "Orchards", "Cascade Park", "Fishers Landing", "Downtown Vancouver", "Minnehaha", "Walnut Grove"] },
-  { slug: "savannah-ga", name: "Savannah", state: "GA", stateName: "Georgia", nearby: ["Downtown Savannah", "Midtown", "Ardsley Park", "Southside", "Georgetown", "Pooler", "Garden City", "Thunderbolt", "Isle of Hope", "Skidaway Island"] },
-  { slug: "marietta-ga", name: "Marietta", state: "GA", stateName: "Georgia", nearby: ["East Cobb", "West Cobb", "Fair Oaks", "Powers Park", "Whitlock", "Sandy Plains", "Kennesaw Mountain area", "Elizabeth", "Blackwell"] },
-  { slug: "atlanta-ga", name: "Atlanta", state: "GA", stateName: "Georgia", nearby: ["Buckhead", "Midtown", "Downtown Atlanta", "Virginia-Highland", "Grant Park", "Old Fourth Ward", "West Midtown", "East Atlanta", "Kirkwood", "Candler Park"] },
-  { slug: "roswell-ga", name: "Roswell", state: "GA", stateName: "Georgia", nearby: ["Historic Roswell", "Crabapple", "Mountain Park", "Willow Springs", "Horseshoe Bend", "East Roswell", "Martins Landing", "North Point area"] },
-  { slug: "san-antonio-tx", name: "San Antonio", state: "TX", stateName: "Texas", nearby: ["Alamo Heights", "Stone Oak", "Leon Valley", "Helotes", "Shavano Park", "Castle Hills", "Converse", "Live Oak", "Universal City", "Terrell Hills", "Downtown San Antonio", "Northwest Side", "Far West Side"] }
+  { slug: "portland-or", name: "Portland", state: "OR", stateName: "Oregon", phoneDisplay: "(971) 342-6751", phoneTel: "+19713426751", streetAddress: "909 SW 5th Ave", postalCode: "97204", nearby: ["Pearl District", "Sellwood-Moreland", "Alberta Arts District", "Hawthorne", "St. Johns", "Laurelhurst", "Northwest Portland", "Southeast Portland", "Northeast Portland"] },
+  { slug: "vancouver-wa", name: "Vancouver", state: "WA", stateName: "Washington", phoneDisplay: "(564) 227-2578", phoneTel: "+15642272578", streetAddress: "316 W 8th St", postalCode: "98660", nearby: ["Hazel Dell", "Salmon Creek", "Felida", "Orchards", "Cascade Park", "Fishers Landing", "Downtown Vancouver", "Minnehaha", "Walnut Grove"] },
+  { slug: "savannah-ga", name: "Savannah", state: "GA", stateName: "Georgia", phoneDisplay: "(912) 450-6093", phoneTel: "+19124506093", streetAddress: "423 Bull St", postalCode: "31401", nearby: ["Downtown Savannah", "Midtown", "Ardsley Park", "Southside", "Georgetown", "Pooler", "Garden City", "Thunderbolt", "Isle of Hope", "Skidaway Island"] },
+  { slug: "marietta-ga", name: "Marietta", state: "GA", stateName: "Georgia", phoneDisplay: "(678) 740-5268", phoneTel: "+16787405268", streetAddress: "115 Anderson St SE", postalCode: "30060", nearby: ["East Cobb", "West Cobb", "Fair Oaks", "Powers Park", "Whitlock", "Sandy Plains", "Kennesaw Mountain area", "Elizabeth", "Blackwell"] },
+  { slug: "atlanta-ga", name: "Atlanta", state: "GA", stateName: "Georgia", phoneDisplay: "(943) 219-1797", phoneTel: "+19432191797", streetAddress: "165 Forsyth St SW", postalCode: "30303", nearby: ["Buckhead", "Midtown", "Downtown Atlanta", "Virginia-Highland", "Grant Park", "Old Fourth Ward", "West Midtown", "East Atlanta", "Kirkwood", "Candler Park"] },
+  { slug: "roswell-ga", name: "Roswell", state: "GA", stateName: "Georgia", phoneDisplay: "(470) 804-7354", phoneTel: "+14708047354", streetAddress: "15 Webb St", postalCode: "30075", nearby: ["Historic Roswell", "Crabapple", "Mountain Park", "Willow Springs", "Horseshoe Bend", "East Roswell", "Martins Landing", "North Point area"] },
+  { slug: "san-antonio-tx", name: "San Antonio", state: "TX", stateName: "Texas", phoneDisplay: "(512) 601-6037", phoneTel: "+15126016037", streetAddress: "323 E Commerce St", postalCode: "78205", nearby: ["Alamo Heights", "Stone Oak", "Leon Valley", "Helotes", "Shavano Park", "Castle Hills", "Converse", "Live Oak", "Universal City", "Terrell Hills", "Downtown San Antonio", "Northwest Side", "Far West Side"] }
 ];
 
 const services = [
@@ -103,6 +103,18 @@ const topTips = [
   { href: "/how-much-does-garage-door-repair-cost/", label: "Repair Cost" }
 ];
 
+const paaSlugs = [
+  "how-much-does-garage-door-repair-cost",
+  "what-to-do-if-garage-door-spring-breaks",
+  "how-to-know-if-garage-door-spring-is-broken",
+  "why-is-my-garage-door-stuck-open",
+  "why-is-my-garage-door-stuck-closed",
+  "why-is-my-garage-door-opener-not-working",
+  "why-did-my-garage-door-cable-snap",
+  "what-is-the-wire-on-my-garage-door-called",
+  "why-did-my-garage-door-come-off-track"
+];
+
 const navLabels = new Map([
   ["garage-door-repair", "Garage Door Repair"],
   ["garage-door-spring-repair", "Spring Repair"],
@@ -121,11 +133,31 @@ function serviceSlug(service, city) {
   return `${service.slugPrimary || service.baseSlug}-${city.slug}`;
 }
 
+function cityLandingSlug(city) {
+  return `garage-door-repair-${city.slug}`;
+}
+
+function servicePageSlug(service, city) {
+  return service.baseSlug === "garage-door-repair" ? cityLandingSlug(city) : serviceSlug(service, city);
+}
+
 function titleCaseKeyword(keyword) {
   return keyword.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 }
 
-function header() {
+function phoneDisplay(city) {
+  return city?.phoneDisplay || DEFAULT_PHONE_DISPLAY;
+}
+
+function phoneTel(city) {
+  return city?.phoneTel || DEFAULT_PHONE_TEL;
+}
+
+function fullAddress(city) {
+  return `${city.streetAddress}, ${city.name}, ${city.state} ${city.postalCode}`;
+}
+
+function header(city) {
   return `<header class="site-header">
   <div class="container header-inner">
     <a href="/" class="brand" aria-label="Garage Door Repair Genie home">
@@ -141,9 +173,9 @@ function header() {
           </ul>
         </li>
         <li class="has-dropdown">
-          <a href="/portland-or/">Service Areas</a>
+          <a href="/${cityLandingSlug(cities[0])}/">Service Areas</a>
           <ul class="dropdown">
-            ${cities.map((city) => `<li><a href="/${city.slug}/">${city.name}, ${city.state}</a></li>`).join("\n            ")}
+            ${cities.map((city) => `<li><a href="/${cityLandingSlug(city)}/">${city.name}, ${city.state}</a></li>`).join("\n            ")}
           </ul>
         </li>
         <li class="has-dropdown">
@@ -155,18 +187,18 @@ function header() {
         <li><a href="/contact/">Contact</a></li>
       </ul>
     </nav>
-    <a href="tel:${PHONE_TEL}" class="btn btn-call header-call">Call Now ${PHONE_DISPLAY}</a>
+    <a href="tel:${phoneTel(city)}" class="btn btn-call header-call">Call Now ${phoneDisplay(city)}</a>
   </div>
 </header>`;
 }
 
-function footer() {
+function footer(city) {
   return `<footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-col">
       <strong class="footer-brand">Garage Door Repair Genie</strong>
       <p>Fast Garage Door Repair, Like Magic. We connect homeowners with local pros for spring, opener, cable, off-track, and emergency garage door work.</p>
-      <a href="tel:${PHONE_TEL}" class="btn btn-call">Call ${PHONE_DISPLAY}</a>
+      <a href="tel:${phoneTel(city)}" class="btn btn-call">Call ${phoneDisplay(city)}</a>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -177,7 +209,7 @@ function footer() {
     <div class="footer-col">
       <h4>Service Areas</h4>
       <ul>
-        ${cities.map((city) => `<li><a href="/${city.slug}/">${city.name}, ${city.state}</a></li>`).join("\n        ")}
+        ${cities.map((city) => `<li><a href="/${cityLandingSlug(city)}/">${city.name}, ${city.state}</a></li>`).join("\n        ")}
       </ul>
     </div>
     <div class="footer-col">
@@ -235,13 +267,16 @@ function pageHtml(service, city) {
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="website">
 <meta name="author" content="Garage Door Repair Genie">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-${header()}
+  ${header(city)}
 <nav class="breadcrumbs container" aria-label="Breadcrumb">
-  <a href="/">Home</a> <span aria-hidden="true">&gt;</span> <a href="/${city.slug}/">${cityName}</a> <span aria-hidden="true">&gt;</span> <span>${esc(service.label)}</span>
+  <a href="/">Home</a> <span aria-hidden="true">&gt;</span> <a href="/${cityLandingSlug(city)}/">${cityName}</a> <span aria-hidden="true">&gt;</span> <span>${esc(service.label)}</span>
 </nav>
 
 <section class="hero hero-service">
@@ -250,7 +285,7 @@ ${header()}
     <h1>${esc(h1)}</h1>
     <p class="hero-sub">${esc(quickAnswer)}</p>
     <div class="hero-cta">
-      <a href="tel:${PHONE_TEL}" class="btn btn-call btn-lg">Call ${PHONE_DISPLAY}</a>
+      <a href="tel:${phoneTel(city)}" class="btn btn-call btn-lg">Call ${phoneDisplay(city)}</a>
       <a href="#service-details" class="btn btn-secondary">See What We Fix</a>
     </div>
   </div>
@@ -298,6 +333,22 @@ ${header()}
   </div>
 </section>
 
+<section class="content-block local-contact" data-generated="local-contact">
+  <div class="container">
+    <h2>Local ${esc(city.name)} Contact Details</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Call Garage Door Repair Genie</h3>
+        <p><a href="tel:${phoneTel(city)}">${phoneDisplay(city)}</a></p>
+      </div>
+      <div class="card">
+        <h3>${esc(city.name)} Service Address</h3>
+        <p>${esc(fullAddress(city))}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="service-areas">
   <div class="container">
     <h2>Related Garage Door Services in ${city.name}</h2>
@@ -326,12 +377,14 @@ ${JSON.stringify({
   "image": `${ORIGIN}/logo.webp`,
   "@id": canonical,
   "url": canonical,
-  "telephone": PHONE_TEL,
+  "telephone": phoneTel(city),
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": city.streetAddress,
     "addressLocality": city.name,
     "addressRegion": city.state,
+    "postalCode": city.postalCode,
     "addressCountry": "US"
   },
   "areaServed": [{ "@type": "City", "name": cityName }, ...nearby.map((area) => ({ "@type": "Place", "name": area }))],
@@ -343,7 +396,7 @@ ${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Service",
   "name": `${service.label} ${city.name} ${city.state}`,
-  "provider": { "@type": "Organization", "name": "Garage Door Repair Genie", "url": ORIGIN, "telephone": PHONE_TEL },
+  "provider": { "@type": "LocalBusiness", "name": `Garage Door Repair Genie - ${cityName}`, "url": canonical, "telephone": phoneTel(city), "address": { "@type": "PostalAddress", "streetAddress": city.streetAddress, "addressLocality": city.name, "addressRegion": city.state, "postalCode": city.postalCode, "addressCountry": "US" } },
   "serviceType": service.label,
   "areaServed": cityName,
   "url": canonical
@@ -366,7 +419,7 @@ ${JSON.stringify({
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": `${ORIGIN}/` },
-    { "@type": "ListItem", "position": 2, "name": cityName, "item": `${ORIGIN}/${city.slug}/` },
+    { "@type": "ListItem", "position": 2, "name": cityName, "item": `${ORIGIN}/${cityLandingSlug(city)}/` },
     { "@type": "ListItem", "position": 3, "name": service.label, "item": canonical }
   ]
 }, null, 2)}
@@ -376,12 +429,12 @@ ${JSON.stringify({
   <div class="container">
     <h2>Call the Genie for ${esc(service.label)} in ${city.name}</h2>
     <p>Garage door problem? Let's make it disappear. Call now for the fastest path to local help.</p>
-    <a href="tel:${PHONE_TEL}" class="btn btn-call btn-lg">Call ${PHONE_DISPLAY}</a>
+    <a href="tel:${phoneTel(city)}" class="btn btn-call btn-lg">Call ${phoneDisplay(city)}</a>
   </div>
 </section>
 
-${footer()}
-<a href="tel:${PHONE_TEL}" class="sticky-cta" aria-label="Call Garage Door Repair Genie">Call Garage Door Repair Genie</a>
+${footer(city)}
+<a href="tel:${phoneTel(city)}" class="sticky-cta" aria-label="Call Garage Door Repair Genie">Call Garage Door Repair Genie</a>
 <script src="/main.js" defer></script>
 </body>
 </html>`;
@@ -393,7 +446,7 @@ function cityServiceLinks(city) {
     <h2>Service Pages for ${city.name}, ${city.state}</h2>
     <p>These focused pages map each local service keyword to one URL.</p>
     <div class="areas-grid">
-      ${services.map((service) => `<a class="area-card" href="/${serviceSlug(service, city)}/"><strong>${esc(service.label)} ${city.name} ${city.state}</strong><span>${esc(service.secondary.slice(0, 2).join(" / "))}</span></a>`).join("\n      ")}
+      ${services.filter((service) => service.baseSlug !== "garage-door-repair").map((service) => `<a class="area-card" href="/${serviceSlug(service, city)}/"><strong>${esc(service.label)} ${city.name} ${city.state}</strong><span>${esc(service.secondary.slice(0, 2).join(" / "))}</span></a>`).join("\n      ")}
     </div>
   </div>
 </section>
@@ -407,7 +460,7 @@ function serviceCityLinks(service) {
     <h2>${esc(service.label)} by City</h2>
     <p class="section-intro">These city pages own the exact local ${esc(service.primary)} keyword cluster for each market.</p>
     <div class="areas-grid">
-      ${cities.map((city) => `<a class="area-card" href="/${serviceSlug(service, city)}/"><strong>${esc(service.label)} ${city.name} ${city.state}</strong><span>${esc(city.nearby.slice(0, 3).join(" / "))}</span></a>`).join("\n      ")}
+      ${cities.map((city) => `<a class="area-card" href="/${servicePageSlug(service, city)}/"><strong>${esc(service.label)} ${city.name} ${city.state}</strong><span>${esc(city.nearby.slice(0, 3).join(" / "))}</span></a>`).join("\n      ")}
     </div>
   </div>
 </section>
@@ -425,6 +478,56 @@ function injectOnce(filePath, marker, html, beforePattern) {
   writeFileSync(filePath, source);
 }
 
+function injectCityLandingSchemas(city) {
+  const filePath = join(PAGES_DIR, `${cityLandingSlug(city)}.html`);
+  const cityName = `${city.name}, ${city.state}`;
+  const canonical = `${ORIGIN}/${cityLandingSlug(city)}/`;
+  const schema = `<script type="application/ld+json" data-generated="city-landing-service-schema">
+${JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": `Garage Door Repair in ${cityName}`,
+  "serviceType": "Garage Door Repair",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": `Garage Door Repair Genie - ${cityName}`,
+    "telephone": phoneTel(city),
+    "url": canonical,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": city.streetAddress,
+      "addressLocality": city.name,
+      "addressRegion": city.state,
+      "postalCode": city.postalCode,
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": [
+    { "@type": "City", "name": cityName },
+    ...city.nearby.slice(0, 8).map((place) => ({ "@type": "Place", "name": place }))
+  ],
+  "url": canonical
+}, null, 2)}
+</script>
+<script type="application/ld+json" data-generated="city-landing-breadcrumb-schema">
+${JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${ORIGIN}/` },
+    { "@type": "ListItem", "position": 2, "name": cityName, "item": canonical }
+  ]
+}, null, 2)}
+</script>
+
+`;
+  let source = readFileSync(filePath, "utf8");
+  source = source.replace(/<script type="application\/ld\+json" data-generated="city-landing-service-schema">[\s\S]*?<\/script>\s*/m, "");
+  source = source.replace(/<script type="application\/ld\+json" data-generated="city-landing-breadcrumb-schema">[\s\S]*?<\/script>\s*/m, "");
+  source = source.replace(/<section class="final-cta">/, `${schema}<section class="final-cta">`);
+  writeFileSync(filePath, source);
+}
+
 function sitemapUrls() {
   const base = [
     "",
@@ -438,10 +541,11 @@ function sitemapUrls() {
     "off-track-garage-door-repair",
     "garage-door-cable-repair",
     "garage-door-wire-broke",
-    ...cities.map((city) => city.slug),
+    ...cities.map((city) => cityLandingSlug(city)),
+    ...paaSlugs,
     "contact"
   ];
-  const cityService = cities.flatMap((city) => services.map((service) => serviceSlug(service, city)));
+  const cityService = cities.flatMap((city) => services.filter((service) => service.baseSlug !== "garage-door-repair").map((service) => serviceSlug(service, city)));
   return [...base, ...cityService];
 }
 
@@ -475,7 +579,9 @@ function writeKeywordMap() {
   rows.push("| URL | Title/H1 Primary Keyword | Secondary H2 Keywords |");
   rows.push("| --- | --- | --- |");
   for (const city of cities) {
+    rows.push(`| \`/${cityLandingSlug(city)}/\` | garage door repair ${city.name} ${city.state} | garage door service; garage door repair near me; broken garage door; garage door won't open; garage door won't close; garage door stuck |`);
     for (const service of services) {
+      if (service.baseSlug === "garage-door-repair") continue;
       rows.push(`| \`/${serviceSlug(service, city)}/\` | ${service.primary} ${city.name} ${city.state} | ${service.secondary.join("; ")} |`);
     }
   }
@@ -493,10 +599,12 @@ mkdirSync(PAGES_DIR, { recursive: true });
 
 for (const city of cities) {
   for (const service of services) {
+    if (service.baseSlug === "garage-door-repair") continue;
     const slug = serviceSlug(service, city);
     writeFileSync(join(PAGES_DIR, `${slug}.html`), pageHtml(service, city));
   }
-  injectOnce(join(PAGES_DIR, `${city.slug}.html`), "city-service-links", cityServiceLinks(city), /<section class="faq">/);
+  injectOnce(join(PAGES_DIR, `${cityLandingSlug(city)}.html`), "city-service-links", cityServiceLinks(city), /<section class="faq">/);
+  injectCityLandingSchemas(city);
 }
 
 for (const service of services) {
@@ -507,4 +615,4 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 writeFileSync("public/sitemap.xml", sitemap);
 writeKeywordMap();
 
-console.log(`Generated ${cities.length * services.length} city-service pages, sitemap.xml, and KEYWORD_MAP.md.`);
+console.log(`Generated ${cities.length * (services.length - 1)} city-service pages, sitemap.xml, and KEYWORD_MAP.md.`);
