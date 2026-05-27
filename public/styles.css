@@ -171,10 +171,21 @@ a { color: inherit; }
   position: relative;
 }
 
+.primary-nav .has-dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: -12px;
+  right: -12px;
+  height: 18px;
+  z-index: 9;
+}
+
 .primary-nav .dropdown {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
+  z-index: 10;
   display: grid;
   min-width: 245px;
   gap: 0;
