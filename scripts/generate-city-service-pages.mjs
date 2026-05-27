@@ -2,8 +2,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ORIGIN = "https://garagedoorrepairgenie.com";
-const DEFAULT_PHONE_DISPLAY = "(000) 000-0000";
-const DEFAULT_PHONE_TEL = "+10000000000";
+const DEFAULT_PHONE_DISPLAY = "(833) 602-3065";
+const DEFAULT_PHONE_TEL = "+18336023065";
 const PAGES_DIR = "public/pages";
 
 const cities = [
