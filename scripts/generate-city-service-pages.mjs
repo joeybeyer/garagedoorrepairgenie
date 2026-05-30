@@ -215,6 +215,24 @@ function serviceQuantifiedComparison(service) {
   return comparisons[service.baseSlug] || "Most service visits separate quick adjustments from part replacement during the first 10 to 15 minutes of diagnosis, then quote the repair before work begins.";
 }
 
+function serviceHumanIntro(service, city) {
+  const cityName = `${city.name}, ${city.state}`;
+  const intros = {
+    "garage-door-spring-repair": `You usually don't forget the sound of a spring letting go. In ${cityName}, we hear it described the same way over and over: one sharp bang, then a door that suddenly feels like it gained 200 pounds. If that happened at your house, don't muscle it up. Tell us whether the spring gap is above the door or along the side track, and we'll point the call in the right direction.`,
+    "garage-door-torsion-spring-repair": `If you're staring at the bar above the door and wondering whether that gap in the spring is normal, it isn't. Around ${cityName}, torsion spring calls usually start with a door that opens a few inches and quits. The slightly annoying part? The opener often gets blamed first, even though the spring is doing the heavy lifting.`,
+    "garage-door-opener-repair": `Opener problems can make you feel like the door is messing with you. One minute the wall button works, then the remote doesn't, then the door drops six inches and reverses. In ${cityName}, the fix depends on whether the door moves smoothly by hand. That detail saves you from buying a motor when all you needed was a sensor, gear, or force-setting repair.`,
+    "emergency-garage-door-repair": `A stuck garage door never picks a polite time. If your door is open to the street in ${cityName}, or your car is trapped behind it, the first job is simple: make the opening safe. The permanent repair comes next. That's not fancy advice, but it's the difference between a stressful call and a worse one.`,
+    "off-track-garage-door-repair": `A crooked garage door looks tempting to nudge back into place. Please don't. In ${cityName}, the worst off-track repairs usually started as one more button press after the first roller popped out. If one side is higher than the other, stop there and tell us what you see.`,
+    "garage-door-cable-repair": `A loose cable hanging beside the door is one of those problems that looks smaller than it is. In ${cityName}, cable calls often start with the door dropping crooked or the opener sounding strained. If that's what you're seeing, don't run another cycle. The next one can bend a panel.`
+  };
+  return intros[service.baseSlug] || `If your garage door is acting weird in ${cityName}, you don't need to diagnose it perfectly before calling. Tell us what you saw, what you heard, and whether the door feels heavy by hand. Those three details usually narrow the repair fast.`;
+}
+
+function serviceHumanNote(service, city) {
+  const nearby = city.nearby.slice(0, 3).join(", ");
+  return `A small thing homeowners miss: the first symptom is usually the most useful one. Did the door bang, drift crooked, reverse, grind, or just sit there humming? If you can describe that part, plus whether you're near ${nearby}, dispatch has a much better shot at sending the right tech with the right parts. It sounds simple, but it saves a lot of back-and-forth.`;
+}
+
 function header(city) {
   return `<header class="site-header">
   <div class="container header-inner">
@@ -296,7 +314,8 @@ function pageHtml(service, city) {
   const heroImage = `/images/branded/${imageForService(service)}`;
   const nearby = city.nearby.slice(0, 8);
   const relatedServices = services.filter((item) => item.baseSlug !== service.baseSlug).slice(0, 6);
-  const quickAnswer = `${titleCaseKeyword(service.primary)} in ${cityName} helps homeowners get a broken, stuck, noisy, or unsafe garage door diagnosed by a local provider. Call Garage Door Repair Genie for the fastest service window and a local estimate.`;
+  const quickAnswer = serviceHumanIntro(service, city);
+  const humanNote = serviceHumanNote(service, city);
   const decisionFit = serviceDecisionFit(service);
   const observedDetail = cityObservedDetail(city);
   const useCaseBinding = serviceUseCaseBinding(service);
@@ -371,6 +390,13 @@ function pageHtml(service, city) {
       <li>Common related calls: ${esc(service.secondary.slice(0, 3).join(", "))}</li>
       <li>Call first for the fastest service window and a local estimate</li>
     </ul>
+  </div>
+</section>
+
+<section class="content-block human-note" data-generated="human-writing">
+  <div class="container">
+    <h2>A Quick Real-World Note</h2>
+    <p>${esc(humanNote)}</p>
   </div>
 </section>
 

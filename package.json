@@ -7,7 +7,9 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "audit:sop": "node scripts/audit-sop.mjs",
+    "audit:human": "node scripts/audit-human-writing.mjs",
     "sop:apply": "node scripts/apply-sop-upgrades.mjs",
+    "human:apply": "node scripts/apply-human-writing-upgrades.mjs",
     "schema:descriptions": "node scripts/optimize-schema-descriptions.mjs",
     "image:nano": "node scripts/kie-nano-banana-pro.mjs",
     "image:nano:help": "node scripts/kie-nano-banana-pro.mjs --help"
