@@ -8,6 +8,7 @@
     "deploy": "wrangler deploy",
     "audit:sop": "node scripts/audit-sop.mjs",
     "audit:human": "node scripts/audit-human-writing.mjs",
+    "audit:authority": "node scripts/audit-authority-sop.mjs",
     "sop:apply": "node scripts/apply-sop-upgrades.mjs",
     "human:apply": "node scripts/apply-human-writing-upgrades.mjs",
     "schema:descriptions": "node scripts/optimize-schema-descriptions.mjs",

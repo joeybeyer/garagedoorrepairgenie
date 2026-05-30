@@ -1,0 +1,162 @@
+{
+  "version": "2026-05-30",
+  "sourceSop": "AI Content Authority Building SOP v1.0",
+  "site": "https://garagedoorrepairgenie.com",
+  "cities": [
+    "portland-or",
+    "vancouver-wa",
+    "savannah-ga",
+    "marietta-ga",
+    "atlanta-ga",
+    "roswell-ga",
+    "san-antonio-tx"
+  ],
+  "activeClusters": [
+    {
+      "id": "garage-door-repair",
+      "status": "active",
+      "hubUrl": "/garage-door-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "garage-door-repair",
+      "primaryIntent": "Transactional local repair diagnosis for broken, stuck, noisy, or unsafe garage doors.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["garage door repair", "garage door service", "spring", "cable", "opener", "track", "roller", "sensor", "same-day dispatch"],
+      "factsWithContext": [
+        "Most repair searches start from a symptom, so the page should map symptoms to likely repair paths.",
+        "City pages own local repair intent while service hubs own broader repair education and conversion.",
+        "Repair pages should separate urgent stuck/crooked doors from tune-up-level noise or minor sensor issues."
+      ],
+      "supportQueries": ["garage door won't open", "garage door won't close", "garage door stuck", "broken garage door", "garage door repair near me"],
+      "supportUrls": ["/why-is-my-garage-door-stuck-open/", "/why-is-my-garage-door-stuck-closed/", "/how-much-does-garage-door-repair-cost/"],
+      "nextSerpRefresh": "Run live SERP overlap checks for the primary repair term in each city before adding more repair variants."
+    },
+    {
+      "id": "spring-repair",
+      "status": "active",
+      "hubUrl": "/garage-door-spring-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "garage-door-spring-repair",
+      "primaryIntent": "Broken spring diagnosis, safety guidance, replacement expectations, and same-day repair conversion.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["torsion spring", "extension spring", "counterbalance", "cycle rating", "spring gap", "door weight", "winding bars", "opener strain"],
+      "factsWithContext": [
+        "Spring pages should explain that the opener is not designed to lift the full door weight after spring failure.",
+        "Cycle rating matters because heavy daily garage use changes the right spring recommendation.",
+        "Two-spring doors usually need paired replacement because both springs share the same cycle history."
+      ],
+      "supportQueries": ["what to do if garage door spring breaks", "how to know if garage door spring is broken", "cost to replace garage door spring"],
+      "supportUrls": ["/what-to-do-if-garage-door-spring-breaks/", "/how-to-know-if-garage-door-spring-is-broken/", "/cost-to-replace-garage-door-spring/"],
+      "nextSerpRefresh": "Compare spring repair, broken spring, and spring replacement SERPs to decide whether replacement deserves a separate page family."
+    },
+    {
+      "id": "torsion-spring-repair",
+      "status": "active",
+      "hubUrl": "/garage-door-torsion-spring-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "garage-door-torsion-spring-repair",
+      "primaryIntent": "Torsion-specific replacement and balance guidance for springs mounted above the door.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["torsion bar", "drums", "wire size", "spring length", "door balance", "winding count", "paired springs"],
+      "factsWithContext": [
+        "Torsion intent is narrower than generic spring repair and should explain how the above-door assembly works.",
+        "Wrong sizing leaves the door unsafe even when the new spring is installed.",
+        "Manual balance testing is the practical proof that the repair was completed correctly."
+      ],
+      "supportQueries": ["garage door torsion spring broken", "replace garage door torsion spring", "broken torsion spring"],
+      "supportUrls": ["/garage-door-spring-repair/", "/how-to-know-if-garage-door-spring-is-broken/", "/cost-to-replace-garage-door-spring/"],
+      "nextSerpRefresh": "Check whether torsion spring repair and replace torsion spring are the same SERP in each active market."
+    },
+    {
+      "id": "opener-repair",
+      "status": "active",
+      "hubUrl": "/garage-door-opener-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "garage-door-opener-repair",
+      "primaryIntent": "Opener motor, remote, keypad, sensor, gear, and force-setting troubleshooting that converts to repair calls.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["garage door opener", "remote", "keypad", "photo eyes", "logic board", "force settings", "travel limits", "gear assembly"],
+      "factsWithContext": [
+        "Opener pages must distinguish true motor failure from door balance problems.",
+        "Sensor and travel-limit issues often mimic opener failure and should be explained before replacement.",
+        "The hand-lift test is the decision point between opener repair and counterbalance repair."
+      ],
+      "supportQueries": ["garage door opener not working", "garage door sensors not working", "garage door remote not working", "garage door keypad not working"],
+      "supportUrls": ["/why-is-my-garage-door-opener-not-working/", "/garage-door-spring-repair/", "/garage-door-cable-repair/"],
+      "nextSerpRefresh": "Check if sensor, keypad, and remote problems deserve separate PAA or service pages after GSC data appears."
+    },
+    {
+      "id": "emergency-repair",
+      "status": "active",
+      "hubUrl": "/emergency-garage-door-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "emergency-garage-door-repair",
+      "primaryIntent": "Urgent repair for stuck-open, stuck-closed, jammed, unsafe, or exposed garage doors.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["emergency garage door repair", "stuck open", "stuck closed", "jammed door", "trapped vehicle", "secure opening", "same-day dispatch"],
+      "factsWithContext": [
+        "Emergency pages should prioritize the first safe outcome before explaining the final repair.",
+        "The same symptom can come from spring, cable, track, sensor, or opener failure, so the page should route by urgency.",
+        "Stuck-open and car-trapped calls are separate user pains even when they share the emergency repair cluster."
+      ],
+      "supportQueries": ["garage door stuck open", "garage door stuck closed", "garage door jammed", "garage door will not close"],
+      "supportUrls": ["/why-is-my-garage-door-stuck-open/", "/why-is-my-garage-door-stuck-closed/", "/garage-door-repair/"],
+      "nextSerpRefresh": "Use GSC to decide whether stuck-open and stuck-closed deserve local city-service page families."
+    },
+    {
+      "id": "off-track-repair",
+      "status": "active",
+      "hubUrl": "/off-track-garage-door-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "off-track-garage-door-repair",
+      "primaryIntent": "Crooked, jammed, or off-track garage door repair with safety and damage-prevention guidance.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["off-track garage door", "roller", "bent track", "crooked door", "track alignment", "panel damage", "cable issue"],
+      "factsWithContext": [
+        "Off-track pages should warn against running the opener after a roller leaves the track.",
+        "The content should connect off-track symptoms to cable, roller, hinge, and impact causes.",
+        "Panel inspection matters because a twisted door can create hidden damage."
+      ],
+      "supportQueries": ["garage door came off track", "garage door crooked and stuck", "garage door track repair", "garage door bent track repair"],
+      "supportUrls": ["/why-did-my-garage-door-come-off-track/", "/garage-door-cable-repair/", "/garage-door-repair/"],
+      "nextSerpRefresh": "Check if bent track repair and off-track repair are separate SERPs before adding track-only pages."
+    },
+    {
+      "id": "cable-repair",
+      "status": "active",
+      "hubUrl": "/garage-door-cable-repair/",
+      "cityPages": true,
+      "serviceBaseSlug": "garage-door-cable-repair",
+      "primaryIntent": "Snapped, loose, frayed, or drum-jumped cable repair for crooked or stuck garage doors.",
+      "serpEvidenceStatus": "manual-pattern-needs-live-refresh",
+      "entities": ["lift cable", "cable drum", "frayed cable", "snapped cable", "door balance", "spring tension", "crooked door"],
+      "factsWithContext": [
+        "Cable pages should explain that one loose cable is a balance problem, not a cosmetic wire problem.",
+        "Pair replacement is often appropriate because both cables carry the same cycle load.",
+        "Cable failure can quickly become panel or track damage if the opener keeps running."
+      ],
+      "supportQueries": ["why did my garage door cable snap", "what is the wire on my garage door called", "garage door cable came off"],
+      "supportUrls": ["/why-did-my-garage-door-cable-snap/", "/what-is-the-wire-on-my-garage-door-called/", "/garage-door-spring-repair/"],
+      "nextSerpRefresh": "Compare cable repair, cable replacement, and cable came off SERPs before adding new variants."
+    }
+  ],
+  "plannedClusters": [
+    {
+      "id": "installation-replacement",
+      "status": "planned-needs-serp-validation",
+      "candidateHubUrl": "/garage-door-installation/",
+      "reason": "Installation and replacement are monetizable but should not be generated until live SERP overlap confirms the correct split."
+    },
+    {
+      "id": "sensor-repair",
+      "status": "planned-needs-gsc-signal",
+      "candidateHubUrl": "/garage-door-sensor-repair/",
+      "reason": "Sensor intent appears inside opener repair today; create only if GSC shows distinct impressions or SERP overlap is low."
+    },
+    {
+      "id": "roller-hinge-noise",
+      "status": "planned-needs-gsc-signal",
+      "candidateHubUrl": "/noisy-garage-door-repair/",
+      "reason": "Noise, rollers, and hinges may be a maintenance cluster, but it needs SERP and GSC confirmation before page expansion."
+    }
+  ]
+}
