@@ -493,6 +493,20 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   transform: translateY(-2px);
 }
 
+.local-map {
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.06);
+}
+
+.local-map iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
 .card-icon {
   display: inline-grid;
   place-items: center;
