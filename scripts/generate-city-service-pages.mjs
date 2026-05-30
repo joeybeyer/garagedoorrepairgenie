@@ -166,6 +166,55 @@ function fullAddress(city) {
   return `${city.streetAddress}, ${city.name}, ${city.state} ${city.postalCode}`;
 }
 
+function cityObservedDetail(city) {
+  const details = {
+    "portland-or": "Portland service calls often cluster around wet-season noise and sensor trouble because tracked-in grit and damp rollers make small alignment problems show up as full door failures.",
+    "vancouver-wa": "Vancouver homes near the river and older downtown blocks often show damp-weather roller noise first, while Salmon Creek and Felida calls skew toward newer multi-door garages with opener calibration drift.",
+    "savannah-ga": "Savannah humidity makes cable and roller wear show earlier than it does inland; calls from Midtown and Ardsley Park often involve older detached garages where corrosion is easier to spot.",
+    "marietta-ga": "Marietta's 1990s and 2000s subdivisions create a steady wave of original spring and opener failures, especially around East Cobb, West Cobb, Whitlock, and Sandy Plains homes.",
+    "atlanta-ga": "Atlanta calls split between older intown doors around Midtown and Grant Park and larger suburban doors around Buckhead, so dispatch has to separate sensor issues from true counterbalance failures.",
+    "roswell-ga": "Roswell homes around Historic Roswell, Crabapple, and Horseshoe Bend often have heavier insulated doors, which makes weak springs and opener strain show up before the door fully stops.",
+    "san-antonio-tx": "San Antonio heat expands metal tracks and dries lubricant quickly, so a door that moves normally in the morning can reverse or grind during a 100-degree afternoon."
+  };
+  return details[city.slug] || `${city.name} garage door calls vary by housing age, weather, and door weight, so the first useful step is matching the visible symptom to the part most likely to fail.`;
+}
+
+function serviceDecisionFit(service) {
+  const fits = {
+    "garage-door-spring-repair": "If the door feels extremely heavy or you heard a bang, choose spring repair first. If the opener hums but the door barely moves, still treat the spring as the lead suspect before replacing the motor. The trade-off is safety: spring work costs more than a reset, but it prevents a damaged opener from lifting an unbalanced door.",
+    "garage-door-torsion-spring-repair": "If the gap is in the spring above the door, choose torsion spring repair. If the springs run along the horizontal tracks, ask about extension spring service instead. The trade-off is precision: torsion springs must be matched to door weight, while a generic spring can leave the door unsafe or hard to balance.",
+    "garage-door-opener-repair": "If the door moves smoothly by hand but fails from the wall button, choose opener repair. If the door is heavy by hand, choose spring or cable diagnosis before replacing the motor. The trade-off is cost control: a sensor or gear repair can be cheaper than a new opener, but a strained opener should not mask a counterbalance problem.",
+    "emergency-garage-door-repair": "If the door is stuck open, choose emergency repair because the home is exposed. If the door is stuck closed with a car trapped inside, choose the same priority but tell dispatch the access problem first. The trade-off is speed versus completeness: the first visit may secure the opening before finishing parts-heavy repairs.",
+    "off-track-garage-door-repair": "If one side sits higher or a roller has left the track, choose off-track repair and stop using the opener. If the track is only noisy but straight, a roller or hinge repair may fit better. The trade-off is damage prevention: early track work protects panels that can bend when the door keeps twisting.",
+    "garage-door-cable-repair": "If a cable hangs loose or the door dropped crooked, choose cable repair. If both cables look tight but the door is heavy, ask for spring diagnosis instead. The trade-off is pairing: replacing both lift cables usually costs more than one cable, but it keeps the door lifting evenly."
+  };
+  return fits[service.baseSlug] || "If the door will not open, will not close, or moves crooked, choose a diagnostic repair visit. If the door is only noisy but balanced, a tune-up may fit better. The trade-off is urgency: a stuck or crooked door needs faster help than routine roller noise.";
+}
+
+function serviceUseCaseBinding(service) {
+  const bindings = {
+    "garage-door-spring-repair": "Spring cycle rating matters when the garage is the main entrance. A 10,000-cycle spring may be enough for light use, while 15,000- to 20,000-cycle springs make more sense when the door opens four or more times a day.",
+    "garage-door-torsion-spring-repair": "Wire size and spring length matter for door balance because the opener should guide the door, not lift the full weight. Correct sizing matters most on double doors and insulated doors.",
+    "garage-door-opener-repair": "Force settings matter when heat, cold, or track drag changes resistance. Sensor alignment matters when the door starts down and reverses before touching the floor.",
+    "emergency-garage-door-repair": "Temporary stabilization matters when the opening is exposed or the door is hanging crooked. Permanent parts replacement matters once the door is safe enough to inspect.",
+    "off-track-garage-door-repair": "Track alignment matters when rollers bind or pop out. Panel inspection matters when the door has twisted because hidden bends can make the same failure return.",
+    "garage-door-cable-repair": "Cable diameter and drum seating matter when the door lifts unevenly. Pair replacement matters when one cable snapped because the other cable usually carried the same cycle load."
+  };
+  return bindings[service.baseSlug] || "Balance testing matters when the opener strains, and sensor testing matters when the door reverses. The right repair depends on which part fails under load.";
+}
+
+function serviceQuantifiedComparison(service) {
+  const comparisons = {
+    "garage-door-spring-repair": "For most homes, basic torsion spring replacement is a same-visit repair; high-cycle upgrades commonly target 15,000 to 20,000 cycles instead of the roughly 10,000 cycles used by many standard springs.",
+    "garage-door-torsion-spring-repair": "A balanced door should stay near halfway open during a manual lift test. If it drops fast or shoots upward, the torsion spring sizing or winding count is off and the opener will wear faster.",
+    "garage-door-opener-repair": "Simple remote, keypad, and sensor fixes can take minutes; gear, rail, or logic-board diagnosis often takes 30 to 60 minutes before the repair path is clear.",
+    "emergency-garage-door-repair": "Emergency calls prioritize the first safe outcome: secure a stuck-open door, release a trapped vehicle, or stabilize a crooked door before a full 60- to 90-minute repair starts.",
+    "off-track-garage-door-repair": "A door that is one roller out of track is usually simpler than a door twisted across multiple panels. The longer the opener runs against the twist, the more likely panel replacement enters the estimate.",
+    "garage-door-cable-repair": "Cable repairs are normally quoted as a pair because both sides carry the same door weight. Replacing one cable can leave the older side as the next failure point."
+  };
+  return comparisons[service.baseSlug] || "Most service visits separate quick adjustments from part replacement during the first 10 to 15 minutes of diagnosis, then quote the repair before work begins.";
+}
+
 function header(city) {
   return `<header class="site-header">
   <div class="container header-inner">
@@ -205,7 +254,7 @@ function footer(city) {
   return `<footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-col">
-      <strong class="footer-brand">Garage Door Repair Genie</strong>
+      <span class="footer-brand">Garage Door Repair Genie</span>
       <p>Fast Garage Door Repair, Like Magic. We connect homeowners with local pros for spring, opener, cable, off-track, and emergency garage door work.</p>
       <a href="tel:${phoneTel(city)}" class="btn btn-call">Call ${phoneDisplay(city)}</a>
     </div>
@@ -248,6 +297,10 @@ function pageHtml(service, city) {
   const nearby = city.nearby.slice(0, 8);
   const relatedServices = services.filter((item) => item.baseSlug !== service.baseSlug).slice(0, 6);
   const quickAnswer = `${titleCaseKeyword(service.primary)} in ${cityName} helps homeowners get a broken, stuck, noisy, or unsafe garage door diagnosed by a local provider. Call Garage Door Repair Genie for the fastest service window and a local estimate.`;
+  const decisionFit = serviceDecisionFit(service);
+  const observedDetail = cityObservedDetail(city);
+  const useCaseBinding = serviceUseCaseBinding(service);
+  const quantifiedComparison = serviceQuantifiedComparison(service);
 
   const faq = [
     {
@@ -284,7 +337,7 @@ function pageHtml(service, city) {
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
+<body itemscope itemtype="https://schema.org/LocalBusiness">
   ${header(city)}
 <nav class="breadcrumbs container" aria-label="Breadcrumb">
   <a href="/">Home</a> <span aria-hidden="true">&gt;</span> <a href="/${cityLandingSlug(city)}/">${cityName}</a> <span aria-hidden="true">&gt;</span> <span>${esc(service.label)}</span>
@@ -294,7 +347,7 @@ function pageHtml(service, city) {
   <div class="container">
     <div class="hero-copy">
       <p class="eyebrow">Local ${esc(service.label)}</p>
-      <h1>${esc(h1)}</h1>
+      <h1 itemprop="name">${esc(h1)}</h1>
       <p class="hero-sub">${esc(quickAnswer)}</p>
       <div class="hero-cta">
         <a href="tel:${phoneTel(city)}" class="btn btn-call btn-lg">Call ${phoneDisplay(city)}</a>
@@ -310,13 +363,13 @@ function pageHtml(service, city) {
 <section class="quick-summary">
   <div class="container">
     <h2>Quick Answer</h2>
-    <p>${esc(quickAnswer)}</p>
+    <p itemprop="description">${esc(quickAnswer)}</p>
     <ul class="key-points">
-      <li><strong>Best next step:</strong> call before forcing a damaged or stuck door</li>
-      <li><strong>Local ${esc(service.label.toLowerCase())}</strong> for homeowners in ${cityName}</li>
-      <li><strong>Same-day dispatch</strong> is often available when you call early</li>
-      <li><strong>Common related calls:</strong> ${esc(service.secondary.slice(0, 3).join(", "))}</li>
-      <li><strong>Call first</strong> for the fastest service window and a local estimate</li>
+      <li>Best next step: call before forcing a damaged or stuck door</li>
+      <li>Local ${esc(service.label.toLowerCase())} for homeowners in ${cityName}</li>
+      <li>Same-day dispatch is often available when you call early</li>
+      <li>Common related calls: ${esc(service.secondary.slice(0, 3).join(", "))}</li>
+      <li>Call first for the fastest service window and a local estimate</li>
     </ul>
   </div>
 </section>
@@ -326,6 +379,16 @@ function pageHtml(service, city) {
     <h2>${esc(titleCaseKeyword(service.secondary[0]))} in ${city.name}</h2>
     <p>${esc(service.problem)} If you are in ${cityName}, call the Genie and describe the symptom. We route the call around the actual problem, not a generic appointment script.</p>
     ${service.safety ? `<p class="callout"><strong>Safety warning:</strong> Do not force a garage door with a broken spring, snapped cable, or off-track section. Garage doors are heavy and can be dangerous when the counterbalance system fails.</p>` : ""}
+  </div>
+</section>
+
+<section class="content-block sop-fit" itemscope itemtype="https://schema.org/Service">
+  <div class="container">
+    <h2>Which Repair Fits This Problem?</h2>
+    <p itemprop="serviceType">${esc(decisionFit)}</p>
+    <p>${esc(observedDetail)}</p>
+    <p>${esc(useCaseBinding)}</p>
+    <p>${esc(quantifiedComparison)}</p>
   </div>
 </section>
 
@@ -344,7 +407,7 @@ function pageHtml(service, city) {
     <h2>${esc(titleCaseKeyword(service.secondary[2] || service.primary))}</h2>
     <p>Local providers cover ${nearby.join(", ")} and nearby areas. If your neighborhood is not listed, call anyway; availability can change by technician location and time of day.</p>
     <div class="areas-grid">
-      ${nearby.map((area) => `<span class="area-card"><strong>${esc(area)}</strong><span>${esc(service.label)} coverage near ${city.name}</span></span>`).join("\n      ")}
+      ${nearby.map((area) => `<span class="area-card" itemprop="areaServed"><span class="area-title">${esc(area)}</span><span>${esc(service.label)} coverage near ${city.name}</span></span>`).join("\n      ")}
     </div>
   </div>
 </section>
@@ -355,11 +418,11 @@ function pageHtml(service, city) {
     <div class="cards">
       <div class="card">
         <h3>Call Garage Door Repair Genie</h3>
-        <p><a href="tel:${phoneTel(city)}">${phoneDisplay(city)}</a></p>
+        <p><a href="tel:${phoneTel(city)}" itemprop="telephone">${phoneDisplay(city)}</a></p>
       </div>
-      <div class="card">
+      <div class="card" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
         <h3>${esc(city.name)} Service Address</h3>
-        <p>${esc(fullAddress(city))}</p>
+        <p><span itemprop="streetAddress">${esc(city.streetAddress)}</span>, <span itemprop="addressLocality">${esc(city.name)}</span>, <span itemprop="addressRegion">${esc(city.state)}</span> <span itemprop="postalCode">${esc(city.postalCode)}</span></p>
       </div>
     </div>
   </div>
@@ -370,7 +433,7 @@ function pageHtml(service, city) {
     <h2>Related Garage Door Services in ${city.name}</h2>
     <p class="section-intro">Each page owns a separate service keyword cluster for ${cityName}, which keeps the site focused and reduces cannibalization.</p>
     <div class="areas-grid">
-      ${relatedServices.map((item) => `<a class="area-card" href="/${serviceSlug(item, city)}/"><strong>${esc(item.label)} ${city.name} ${city.state}</strong><span>${esc(item.secondary.slice(0, 2).join(" / "))}</span></a>`).join("\n      ")}
+      ${relatedServices.map((item) => `<a class="area-card" href="/${serviceSlug(item, city)}/" itemprop="url"><span class="area-title">${esc(item.label)} ${city.name} ${city.state}</span><span>${esc(item.secondary.slice(0, 2).join(" / "))}</span></a>`).join("\n      ")}
     </div>
   </div>
 </section>
@@ -394,6 +457,7 @@ ${JSON.stringify({
   "@id": canonical,
   "url": canonical,
   "telephone": phoneTel(city),
+  "description": quickAnswer,
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
@@ -412,6 +476,7 @@ ${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Service",
   "name": `${service.label} ${city.name} ${city.state}`,
+  "description": quickAnswer,
   "provider": { "@type": "LocalBusiness", "name": `Garage Door Repair Genie - ${cityName}`, "url": canonical, "telephone": phoneTel(city), "address": { "@type": "PostalAddress", "streetAddress": city.streetAddress, "addressLocality": city.name, "addressRegion": city.state, "postalCode": city.postalCode, "addressCountry": "US" } },
   "serviceType": service.label,
   "areaServed": cityName,
@@ -462,7 +527,7 @@ function cityServiceLinks(city) {
     <h2>Service Pages for ${city.name}, ${city.state}</h2>
     <p>These focused pages map each local service keyword to one URL.</p>
     <div class="areas-grid">
-      ${services.filter((service) => service.baseSlug !== "garage-door-repair").map((service) => `<a class="area-card" href="/${serviceSlug(service, city)}/"><strong>${esc(service.label)} ${city.name} ${city.state}</strong><span>${esc(service.secondary.slice(0, 2).join(" / "))}</span></a>`).join("\n      ")}
+      ${services.filter((service) => service.baseSlug !== "garage-door-repair").map((service) => `<a class="area-card" href="/${serviceSlug(service, city)}/" itemprop="url"><span class="area-title">${esc(service.label)} ${city.name} ${city.state}</span><span>${esc(service.secondary.slice(0, 2).join(" / "))}</span></a>`).join("\n      ")}
     </div>
   </div>
 </section>
@@ -476,7 +541,7 @@ function serviceCityLinks(service) {
     <h2>${esc(service.label)} by City</h2>
     <p class="section-intro">These city pages own the exact local ${esc(service.primary)} keyword cluster for each market.</p>
     <div class="areas-grid">
-      ${cities.map((city) => `<a class="area-card" href="/${servicePageSlug(service, city)}/"><strong>${esc(service.label)} ${city.name} ${city.state}</strong><span>${esc(city.nearby.slice(0, 3).join(" / "))}</span></a>`).join("\n      ")}
+      ${cities.map((city) => `<a class="area-card" href="/${servicePageSlug(service, city)}/" itemprop="url"><span class="area-title">${esc(service.label)} ${city.name} ${city.state}</span><span>${esc(city.nearby.slice(0, 3).join(" / "))}</span></a>`).join("\n      ")}
     </div>
   </div>
 </section>

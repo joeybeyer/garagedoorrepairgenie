@@ -1,5 +1,15 @@
 const CANONICAL_ORIGIN = "https://garagedoorrepairgenie.com";
 
+const CITY_LANDING_REDIRECTS = new Map([
+  ["/portland-or/", "/garage-door-repair-portland-or/"],
+  ["/vancouver-wa/", "/garage-door-repair-vancouver-wa/"],
+  ["/savannah-ga/", "/garage-door-repair-savannah-ga/"],
+  ["/marietta-ga/", "/garage-door-repair-marietta-ga/"],
+  ["/atlanta-ga/", "/garage-door-repair-atlanta-ga/"],
+  ["/roswell-ga/", "/garage-door-repair-roswell-ga/"],
+  ["/san-antonio-tx/", "/garage-door-repair-san-antonio-tx/"]
+]);
+
 function pageAssetPath(pathname) {
   if (pathname === "/") return "/pages/home.html";
   if (pathname.includes(".") || !pathname.endsWith("/")) return null;
@@ -30,7 +40,7 @@ function branded404() {
     <h1>Garage door problem? This page disappeared.</h1>
     <p>The page you requested was not found. Call now for fast help or return home.</p>
     <div class="actions">
-      <a class="btn btn-primary" href="tel:+10000000000">Call Now</a>
+      <a class="btn btn-primary" href="tel:+18336023065">Call Now</a>
       <a class="btn btn-secondary" href="/">Go Home</a>
     </div>
   </main>
@@ -57,6 +67,12 @@ export default {
 
     if (url.pathname !== "/" && !url.pathname.includes(".") && !url.pathname.endsWith("/")) {
       url.pathname = `${url.pathname}/`;
+      return Response.redirect(url.toString(), 301);
+    }
+
+    const cityLandingPath = CITY_LANDING_REDIRECTS.get(url.pathname);
+    if (cityLandingPath) {
+      url.pathname = cityLandingPath;
       return Response.redirect(url.toString(), 301);
     }
 

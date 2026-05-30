@@ -5,9 +5,15 @@
   "description": "Static Cloudflare Worker lead generation site for Garage Door Repair Genie.",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "audit:sop": "node scripts/audit-sop.mjs",
+    "sop:apply": "node scripts/apply-sop-upgrades.mjs",
+    "schema:descriptions": "node scripts/optimize-schema-descriptions.mjs",
+    "image:nano": "node scripts/kie-nano-banana-pro.mjs",
+    "image:nano:help": "node scripts/kie-nano-banana-pro.mjs --help"
   },
   "devDependencies": {
+    "sharp": "^0.34.5",
     "wrangler": "^4.14.4"
   }
 }

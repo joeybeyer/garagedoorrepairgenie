@@ -646,10 +646,12 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
   text-decoration: none;
 }
 
-.area-card strong {
+.area-card strong,
+.area-card .area-title {
   display: block;
   font-size: 1.05rem;
   line-height: 1.2;
+  font-weight: 800;
 }
 
 .area-card span {
@@ -661,7 +663,8 @@ h3 { font-size: 1.2rem; margin: 0 0 8px; }
 .card h3,
 .problem h3,
 .why-item h3,
-.area-card strong {
+.area-card strong,
+.area-card .area-title {
   text-decoration: none;
 }
 

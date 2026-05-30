@@ -4,13 +4,13 @@ import { join } from "node:path";
 const PAGES_DIR = "public/pages";
 
 const cities = [
-  { slug: "portland-or", name: "Portland", state: "OR", nearby: "Pearl District, Sellwood-Moreland, Hawthorne, St. Johns, and Laurelhurst" },
-  { slug: "vancouver-wa", name: "Vancouver", state: "WA", nearby: "Hazel Dell, Salmon Creek, Felida, Cascade Park, and Downtown Vancouver" },
-  { slug: "savannah-ga", name: "Savannah", state: "GA", nearby: "Downtown Savannah, Midtown, Ardsley Park, Southside, Pooler, and Isle of Hope" },
-  { slug: "marietta-ga", name: "Marietta", state: "GA", nearby: "East Cobb, West Cobb, Whitlock, Sandy Plains, and the Kennesaw Mountain area" },
-  { slug: "atlanta-ga", name: "Atlanta", state: "GA", nearby: "Buckhead, Midtown, Downtown Atlanta, Virginia-Highland, Grant Park, and Old Fourth Ward" },
-  { slug: "roswell-ga", name: "Roswell", state: "GA", nearby: "Historic Roswell, Crabapple, Mountain Park, Willow Springs, and East Roswell" },
-  { slug: "san-antonio-tx", name: "San Antonio", state: "TX", nearby: "Alamo Heights, Stone Oak, Helotes, Castle Hills, Downtown San Antonio, and the Far West Side" }
+  { slug: "garage-door-repair-portland-or", name: "Portland", state: "OR", nearby: "Pearl District, Sellwood-Moreland, Hawthorne, St. Johns, and Laurelhurst" },
+  { slug: "garage-door-repair-vancouver-wa", name: "Vancouver", state: "WA", nearby: "Hazel Dell, Salmon Creek, Felida, Cascade Park, and Downtown Vancouver" },
+  { slug: "garage-door-repair-savannah-ga", name: "Savannah", state: "GA", nearby: "Downtown Savannah, Midtown, Ardsley Park, Southside, Pooler, and Isle of Hope" },
+  { slug: "garage-door-repair-marietta-ga", name: "Marietta", state: "GA", nearby: "East Cobb, West Cobb, Whitlock, Sandy Plains, and the Kennesaw Mountain area" },
+  { slug: "garage-door-repair-atlanta-ga", name: "Atlanta", state: "GA", nearby: "Buckhead, Midtown, Downtown Atlanta, Virginia-Highland, Grant Park, and Old Fourth Ward" },
+  { slug: "garage-door-repair-roswell-ga", name: "Roswell", state: "GA", nearby: "Historic Roswell, Crabapple, Mountain Park, Willow Springs, and East Roswell" },
+  { slug: "garage-door-repair-san-antonio-tx", name: "San Antonio", state: "TX", nearby: "Alamo Heights, Stone Oak, Helotes, Castle Hills, Downtown San Antonio, and the Far West Side" }
 ];
 
 function block(city) {
