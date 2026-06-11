@@ -275,7 +275,7 @@ function footer() {
   <div class="container footer-grid">
     <div class="footer-col">
       <strong class="footer-brand">Garage Door Repair Genie</strong>
-      <p>Fast Garage Door Repair, Like Magic. We connect homeowners with local pros for spring, opener, cable, off-track, and emergency garage door work.</p>
+      <p>Fast Garage Door Repair, Like Magic. We handle spring, opener, cable, off-track, and emergency garage door work for local homeowners.</p>
       <a href="tel:${PHONE_TEL}" class="btn btn-call">Call ${PHONE_DISPLAY}</a>
     </div>
     <div class="footer-col">
@@ -292,7 +292,7 @@ function footer() {
     </div>
   </div>
   <div class="container footer-bottom">
-    <p class="disclaimer">Garage Door Repair Genie connects homeowners with local garage door repair service providers. Service availability may vary by location.</p>
+    <p class="disclaimer">Garage Door Repair Genie provides local garage door repair service. Service availability may vary by location.</p>
     <p>&copy; <span id="copyright-year">2026</span> Garage Door Repair Genie. All rights reserved.</p>
   </div>
 </footer>`;

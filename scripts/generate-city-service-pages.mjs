@@ -286,7 +286,7 @@ function footer(city) {
   <div class="container footer-grid">
     <div class="footer-col">
       <span class="footer-brand">Garage Door Repair Genie</span>
-      <p>Fast Garage Door Repair, Like Magic. We connect homeowners with local pros for spring, opener, cable, off-track, and emergency garage door work.</p>
+      <p>Fast Garage Door Repair, Like Magic. We handle spring, opener, cable, off-track, and emergency garage door work for local homeowners.</p>
       <a href="tel:${phoneTel(city)}" class="btn btn-call">Call ${phoneDisplay(city)}</a>
     </div>
     <div class="footer-col">
@@ -310,7 +310,7 @@ function footer(city) {
     </div>
   </div>
   <div class="container footer-bottom">
-    <p class="disclaimer">Garage Door Repair Genie connects homeowners with local garage door repair service providers. Service availability may vary by location.</p>
+    <p class="disclaimer">Garage Door Repair Genie provides local garage door repair service. Service availability may vary by location.</p>
     <p>&copy; <span id="copyright-year">2026</span> Garage Door Repair Genie. All rights reserved.</p>
   </div>
 </footer>`;
@@ -444,7 +444,7 @@ function pageHtml(service, city) {
 <section class="content-block">
   <div class="container">
     <h2>${esc(titleCaseKeyword(service.secondary[2] || service.primary))}</h2>
-    <p>Local providers cover ${nearby.join(", ")} and nearby areas. If your neighborhood is not listed, call anyway; availability can change by technician location and time of day.</p>
+    <p>Garage Door Repair Genie covers ${nearby.join(", ")} and nearby areas. If your neighborhood is not listed, call anyway; availability can change by schedule and service type.</p>
     <div class="areas-grid">
       ${nearby.map((area) => `<span class="area-card" itemprop="areaServed"><span class="area-title">${esc(area)}</span><span>${esc(service.label)} coverage near ${city.name}</span></span>`).join("\n      ")}
     </div>

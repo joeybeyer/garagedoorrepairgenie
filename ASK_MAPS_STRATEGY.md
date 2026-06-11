@@ -53,7 +53,7 @@ Next website work:
 Use one fact-dense description per city profile. Keep it natural, but include service facts that Ask Maps can reuse.
 
 ```text
-Garage Door Repair Genie connects homeowners with local garage door repair providers in [City, State]. Services include garage door repair, broken spring repair, torsion spring replacement, opener repair, cable repair, off-track door repair, and emergency garage door help for doors stuck open or stuck closed. Service areas include [Neighborhoods]. Call for fast local help and a repair estimate.
+Garage Door Repair Genie provides local garage door repair in [City, State]. Services include garage door repair, broken spring repair, torsion spring replacement, opener repair, cable repair, off-track door repair, and emergency garage door help for doors stuck open or stuck closed. Service areas include [Neighborhoods]. Call for fast local help and a repair estimate.
 ```
 
 Do not write hype-only descriptions. Use concrete services, city, neighborhoods, and urgent problem language.

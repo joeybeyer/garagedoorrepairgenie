@@ -24,7 +24,7 @@ function block(city) {
       </div>
       <div class="card">
         <h3>Who fixes broken garage door springs in ${city.name}?</h3>
-        <p>Garage Door Repair Genie connects homeowners with local providers for broken spring repair in ${city.name}. Do not force the door if the spring snapped or the door feels too heavy to lift.</p>
+        <p>Garage Door Repair Genie provides broken spring repair in ${city.name}. Do not force the door if the spring snapped or the door feels too heavy to lift.</p>
       </div>
       <div class="card">
         <h3>Can I get emergency garage door repair in ${city.name}?</h3>
