@@ -7,11 +7,11 @@ const DEFAULT_PHONE_TEL = "+18336023065";
 const PAGES_DIR = "public/pages";
 
 const cities = [
-  { slug: "portland-or", name: "Portland", state: "OR", stateName: "Oregon", phoneDisplay: "(971) 342-6751", phoneTel: "+19713426751", streetAddress: "909 SW 5th Ave", postalCode: "97204", nearby: ["Pearl District", "Sellwood-Moreland", "Alberta Arts District", "Hawthorne", "St. Johns", "Laurelhurst", "Northwest Portland", "Southeast Portland", "Northeast Portland"] },
+  { slug: "portland-or", name: "Portland", state: "OR", stateName: "Oregon", phoneDisplay: "(971) 342-6751", phoneTel: "+19713426751", streetAddress: "909 SW 5th Ave", postalCode: "97204", mapEmbedSrc: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d265000.2109709155!2d-122.6543856!3d45.5427145!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549571c606e23221%3A0x60cb4031e3ccc65c!2sGarage%20Door&#39;s%20Repair%20Genie!5e1!3m2!1sen!2sus!4v1781214074406!5m2!1sen!2sus", nearby: ["Pearl District", "Sellwood-Moreland", "Alberta Arts District", "Hawthorne", "St. Johns", "Laurelhurst", "Northwest Portland", "Southeast Portland", "Northeast Portland"] },
   { slug: "vancouver-wa", name: "Vancouver", state: "WA", stateName: "Washington", phoneDisplay: "(564) 227-2578", phoneTel: "+15642272578", streetAddress: "316 W 8th St", postalCode: "98660", nearby: ["Hazel Dell", "Salmon Creek", "Felida", "Orchards", "Cascade Park", "Fishers Landing", "Downtown Vancouver", "Minnehaha", "Walnut Grove"] },
   { slug: "savannah-ga", name: "Savannah", state: "GA", stateName: "Georgia", phoneDisplay: "(912) 450-6093", phoneTel: "+19124506093", streetAddress: "423 Bull St", postalCode: "31401", nearby: ["Downtown Savannah", "Midtown", "Ardsley Park", "Southside", "Georgetown", "Pooler", "Garden City", "Thunderbolt", "Isle of Hope", "Skidaway Island"] },
   { slug: "marietta-ga", name: "Marietta", state: "GA", stateName: "Georgia", phoneDisplay: "(678) 740-5268", phoneTel: "+16787405268", streetAddress: "115 Anderson St SE", postalCode: "30060", nearby: ["East Cobb", "West Cobb", "Fair Oaks", "Powers Park", "Whitlock", "Sandy Plains", "Kennesaw Mountain area", "Elizabeth", "Blackwell"] },
-  { slug: "atlanta-ga", name: "Atlanta", state: "GA", stateName: "Georgia", phoneDisplay: "(943) 219-1797", phoneTel: "+19432191797", streetAddress: "165 Forsyth St SW", postalCode: "30303", nearby: ["Buckhead", "Midtown", "Downtown Atlanta", "Virginia-Highland", "Grant Park", "Old Fourth Ward", "West Midtown", "East Atlanta", "Kirkwood", "Candler Park"] },
+  { slug: "atlanta-ga", name: "Atlanta", state: "GA", stateName: "Georgia", phoneDisplay: "(943) 219-1797", phoneTel: "+19432191797", streetAddress: "165 Forsyth St SW", postalCode: "30303", mapEmbedSrc: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4915.648934760804!2d-84.3959114!3d33.7499378!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5ebd4cfa82415%3A0xd37e57bd7031df43!2sGarage%20Door&#39;s%20Repair%20Genie!5e1!3m2!1sen!2sus!4v1781214022319!5m2!1sen!2sus", nearby: ["Buckhead", "Midtown", "Downtown Atlanta", "Virginia-Highland", "Grant Park", "Old Fourth Ward", "West Midtown", "East Atlanta", "Kirkwood", "Candler Park"] },
   { slug: "roswell-ga", name: "Roswell", state: "GA", stateName: "Georgia", phoneDisplay: "(470) 804-7354", phoneTel: "+14708047354", streetAddress: "15 Webb St", postalCode: "30075", nearby: ["Historic Roswell", "Crabapple", "Mountain Park", "Willow Springs", "Horseshoe Bend", "East Roswell", "Martins Landing", "North Point area"] },
   { slug: "san-antonio-tx", name: "San Antonio", state: "TX", stateName: "Texas", phoneDisplay: "(512) 601-6037", phoneTel: "+15126016037", streetAddress: "323 E Commerce St", postalCode: "78205", nearby: ["Alamo Heights", "Stone Oak", "Leon Valley", "Helotes", "Shavano Park", "Castle Hills", "Converse", "Live Oak", "Universal City", "Terrell Hills", "Downtown San Antonio", "Northwest Side", "Far West Side"] }
 ];
@@ -164,6 +164,19 @@ function phoneTel(city) {
 
 function fullAddress(city) {
   return `${city.streetAddress}, ${city.name}, ${city.state} ${city.postalCode}`;
+}
+
+function cityLocalMap(city) {
+  if (!city.mapEmbedSrc) return "";
+  return `<section class="content-block city-local-map" data-generated="city-local-map">
+  <div class="container">
+    <div class="local-map">
+      <iframe src="${city.mapEmbedSrc}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Garage Door Repair Genie ${esc(city.name)} map"></iframe>
+    </div>
+  </div>
+</section>
+
+`;
 }
 
 function cityObservedDetail(city) {
@@ -711,6 +724,7 @@ for (const city of cities) {
     writeFileSync(join(PAGES_DIR, `${slug}.html`), pageHtml(service, city));
   }
   injectOnce(join(PAGES_DIR, `${cityLandingSlug(city)}.html`), "city-service-links", cityServiceLinks(city), /<section class="faq">/);
+  injectOnce(join(PAGES_DIR, `${cityLandingSlug(city)}.html`), "city-local-map", cityLocalMap(city), /<section class="content-block city-service-links" data-generated="city-service-links">/);
   injectCityLandingSchemas(city);
 }
 
